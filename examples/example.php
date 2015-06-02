@@ -19,14 +19,18 @@ $db = connect::getInstance();
  * Handle:
  *  - name your handle ( db1,db2 ) what is easist to use in your application.
  */
-$db->createConnection('handle','host','database','user','password');
+$db->createConnection('db1','host','database','user','password');
+$db->createConnection('db2','host','database','user','password');
+$db->createConnection('db3','host','database','user','password');
 
+/**
+ * Running Database Queries Use:
+ * $db->handle->query("sql","result_type");
+ * 
+ * sql         = query in which you would like to run.
+ * result_type = "row" or "result" (use result_type if you want results returned from your query, otherwise leave blank/null)
+ */
 
-// Running Database Queries Use:
-// $db->handle->query("sql","result_type");
-// sql = "SELECT/INSERT/ALTER/DELETE" Etc.
-// result_type = "row" or "result" (only use result_type if you want results from your query, otherwise leave blank)
-// return = array of database objects
 
 /**
  * Running Queries
