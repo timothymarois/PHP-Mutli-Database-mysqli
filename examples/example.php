@@ -11,8 +11,14 @@ require_once('/database/mysqli/connect.php');
 
 // begin with connecting the db class
 $db = connect::getInstance();
-// now connect your actual database details
-// handle is for using multiple database, look at multiple-database-example.php
+
+/**
+ * Connection Multiple Database
+ * ('handle','host','database','user','password')
+ *
+ * Handle:
+ *  - name your handle ( db1,db2 ) what is easist to use in your application.
+ */
 $db->createConnection('handle','host','database','user','password');
 
 
@@ -21,6 +27,20 @@ $db->createConnection('handle','host','database','user','password');
 // sql = "SELECT/INSERT/ALTER/DELETE" Etc.
 // result_type = "row" or "result" (only use result_type if you want results from your query, otherwise leave blank)
 // return = array of database objects
+
+/**
+ * Running Queries
+ * (change out the handle, in my case db1,db2,db3) and run a query on any database connected
+ */
+
+// handle : db1
+$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
+
+// handle : db12
+$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
+
+
+
 
 
 /**
