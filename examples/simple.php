@@ -28,12 +28,9 @@ $db->createConnection('handle','host','database','user','password');
  * Use "result" as the result_type
  * Returns array of database objects
  */
-
 $results = $db->handle->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
-
 if ($results) {
 	foreach($results as $row) {
-		// $row has database objects 
 		$row->id;
 		$row->column_name;
 	}
@@ -45,11 +42,8 @@ if ($results) {
  * Use "row" as the result_type
  * Returns one database object
  */
-
 $result = $db->handle->query("SELECT * FROM mytable WHERE id = 30","row");
-
 if ($results) {
-	// $results has database objects 
     $result->id;
     $result->column_name;
 }
@@ -59,11 +53,13 @@ if ($results) {
 
 /**
  * UPDATE QUERIES
+ * all other queries which do not require results returned.
+ * if the query passes, it will return true.
  */
 $query = $db->handle->query("UPDATE mytable SET column_name = 'TEST_NAME' WHERE id = 30");
 // $query = $db->handle->query("INSERT mytable SET column_name = 'TEST_NAME'");
 // $query = $db->handle->query("DELETE mytable WHERE id = 30");
 if ($query) {
-	// query passed
+	/* Query Returns TRUE */
 }
 
