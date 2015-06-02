@@ -1,10 +1,11 @@
 <?php
 
 /**
- * This file acts as an example to connect a simple application
- *
+ * This file is an example of connecting multiple database to one application.
  *
  */
+
+
 
 // location to the mysqli connect file
 require_once('/database/mysqli/connect.php'); 
@@ -17,7 +18,8 @@ $db = connect::getInstance();
  * ('handle','host','database','user','password')
  *
  * Handle:
- *  - name your handle ( db1,db2 ) what is easist to use in your application.
+ *  - name your handle ( db1,db2 ) what is the easist to use in your application.
+ *  - be sure to change the "handle" name within your queries (examples below)
  */
 $db->createConnection('db1','host','database','user','password');
 $db->createConnection('db2','host','database','user','password');
