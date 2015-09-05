@@ -10,16 +10,12 @@ class connect
 	private static $_instance = null;
 	private $_connections = array();
 
-	public function __construct() {
+	public function __construct() { }
 
-	}
-
-	
 	// added "static" to fix non-static method warning)
 	public static function getInstance()
 	{ 
-		if(!self::$_instance instanceof self) 
-		{
+		if(!self::$_instance instanceof self) {
 			self::$_instance = new self();
 		}
 		
@@ -29,10 +25,10 @@ class connect
 
 	public function createConnection($handle,$host,$database,$userName = null,$password = null) 
 	{
-		$this->_connections[$handle] = array('host' 	=> $host,
-		 	                                 'database' => $database,
-		 	                                 'userName' => $userName,
-		 	                                 'password' => $password);
+		$this->_connections[$handle] = array('host' 	  => $host,
+		 	                                   'database' => $database,
+		 	                                   'userName' => $userName,
+		 	                                   'password' => $password);
 		return $this;
 	}
 	
@@ -67,8 +63,7 @@ class connect
 	  }
 
 
-	public function __get($handle) 
-	{
+	public function __get($handle) {
 		return $this->getDatabaseConnection($handle);
 	}
 }

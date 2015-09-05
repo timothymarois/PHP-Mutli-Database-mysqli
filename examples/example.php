@@ -5,7 +5,7 @@
  *
  */
 
-require_once('/database/mysqli/connect.php'); 
+require_once('../database/mysqli/connect.php'); 
 $db = connect::getInstance();
 
 
@@ -39,20 +39,19 @@ $db->createConnection('db3','host','database','user','password');
  */
 
 // handle : db1
-$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
+$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()");
 
 // handle : db12
-$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
+$db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()");
 
 
 // `handle` would be changed to db1,db2, etc or the name of what you changed it too.
 
 /**
  * QUERIES with "multiple results"
- * Use "result" as the result_type
  * Returns array of database objects
  */
-$results = $db->handle->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
+$results = $db->handle->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()");
 if ($results) {
 	foreach($results as $row) {
 		$row->id;
@@ -63,7 +62,7 @@ if ($results) {
 
 /**
  * QUERIES for only 1 result
- * Use "row" as the result_type
+ * Use "row" as the result_type, in the second parameter
  * Returns one database object
  */
 $result = $db->handle->query("SELECT * FROM mytable WHERE id = 30","row");
@@ -82,5 +81,5 @@ $query = $db->handle->query("UPDATE mytable SET column_name = 'TEST_NAME' WHERE 
 // $query = $db->handle->query("INSERT mytable SET column_name = 'TEST_NAME'");
 // $query = $db->handle->query("DELETE mytable WHERE id = 30");
 if ($query) {
-	/* Query Returns TRUE */
+	/* Query Returns affected_rows (>0 is TRUE) */
 }
