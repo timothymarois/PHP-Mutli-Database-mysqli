@@ -56,6 +56,20 @@ for($x=0; $x < mt_rand(99,999); $x++) {
 } 
 
 
+// display all the rows on the page
+// by default use "result"
+$q = $db->local->query("SELECT * FROM test_table ");
+print '<pre>';
+foreach($q as $r) {
+	print "id = ".$r->id." \n";
+}
+print '</pre>';
+
+// only return 1 item, use "row"
+// you can still declare "result" to confirm
+$q = $db->local->query("SELECT * FROM test_table LIMIT 1","row");
+print_r($q);
+
 
 // close the database connection
 $db->local->close();

@@ -5,18 +5,15 @@
   */
 class extend_mysqli extends mysqli 
 {
+
 	/**
    * This Function overwrites the mysql query function but should return the same objects
    */
-	public function query($query,$resultmode=null)
+	public function query($query='',$resultmode='result')
 	{
-		if($return = parent::query($query)) 
+		if($query!='' && $return = parent::query($query)) 
 		{
-			if (preg_match('/^\s*DELETE\s+FROM\s*/i',$query)) {
-				return $this->affected_rows;
-			}
-
-			if (preg_match('/^\s*UPDATE(.*)SET/i',$query)) {
+			if (preg_match('/^\s*DELETE\s+FROM\s*/i',$query) || preg_match('/^\s*UPDATE(.*)SET/i',$query)) {
 				return $this->affected_rows;
 			}
 
@@ -24,24 +21,16 @@ class extend_mysqli extends mysqli
 				return $this->insert_id;
 			}
 
-			/*if ($resultmode==='row') 
-			{
-				$r = $return->fetch_object();
-				$return->free();
+			if (preg_match('/^\s*SELECT/i',$query)) {
+			  if ($resultmode==='row') {
+			  	return $return->fetch_object();
+			  }
+			  else {
+			  	return $this->_buildArray($return);
+			  }
 			}
-			elseif ($resultmode==='result') 
-			{
-				$r = $this->_buildArray($return);
-				$return->free();
-			}
-			else {
-				$r = true;
-			}*/
-
-			// return $this->affected_rows;
 		}
-		else
-		{
+		else {
 			return false;
 		} 
 	}  
@@ -77,6 +66,5 @@ class extend_mysqli extends mysqli
     	
 		return $array;
 	}
- }
- 
 
+ }
