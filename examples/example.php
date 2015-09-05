@@ -5,13 +5,10 @@
  *
  */
 
-
-
-// location to the mysqli connect file
 require_once('/database/mysqli/connect.php'); 
-
-// begin with connecting the db class
 $db = connect::getInstance();
+
+
 
 /**
  * Connection Multiple Database
@@ -24,6 +21,8 @@ $db = connect::getInstance();
 $db->createConnection('db1','host','database','user','password');
 $db->createConnection('db2','host','database','user','password');
 $db->createConnection('db3','host','database','user','password');
+
+
 
 /**
  * Running Database Queries Use:
@@ -46,8 +45,7 @@ $db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","res
 $db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()","result");
 
 
-
-
+// `handle` would be changed to db1,db2, etc or the name of what you changed it too.
 
 /**
  * QUERIES with "multiple results"
@@ -75,8 +73,6 @@ if ($results) {
 }
 
 
-
-
 /**
  * UPDATE QUERIES
  * all other queries which do not require results returned.
@@ -88,4 +84,3 @@ $query = $db->handle->query("UPDATE mytable SET column_name = 'TEST_NAME' WHERE 
 if ($query) {
 	/* Query Returns TRUE */
 }
-
