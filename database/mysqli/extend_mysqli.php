@@ -21,7 +21,6 @@ class extend_mysqli extends mysqli
 		} 
 	}  
 
-
 	public function row() {
 		if ($this->return) {
 			return $this->return->fetch_object();
