@@ -66,9 +66,10 @@ for($x=0; $x < mt_rand(99,999); $x++) {
 
 // display all the rows on the page
 // by default use "result"
-$q = $db->local->query("SELECT * FROM test_table ")->result();
+$q = $db->local->query("SELECT * FROM test_table ");
 print '<pre>';
-foreach($q as $r) {
+print 'num_rows(): '.$q->num_rows()." \n";
+foreach($q->result() as $r) {
 	print "id = ".$r->id." \n";
 }
 print '</pre>';

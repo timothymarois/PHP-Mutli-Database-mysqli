@@ -52,6 +52,14 @@ class extend_mysqli extends mysqli
 		return false;
 	}
 
+	public function num_rows() {
+		if ($this->return->num_rows) {
+			return $this->return->num_rows;
+		}
+
+		return false;
+	}
+
 	
 	/**
    * This function loops through the results and returns them as an array of objects
