@@ -26,10 +26,16 @@ $db->createConnection('db3','host','database','user','password');
 
 /**
  * Running Database Queries Use:
- * $db->handle->query("sql","result_type");
+ * $db->handle->query("sql");
  * 
  * sql         = query in which you would like to run.
- * result_type = "row" or "result" (use result_type if you want results returned from your query, otherwise leave blank/null)
+ *
+ * API:
+ * ->row()
+ * ->result()
+ * ->affected_rows()
+ * ->insert_id()
+ *
  */
 
 
@@ -62,10 +68,10 @@ if ($results) {
 
 /**
  * QUERIES for only 1 result
- * Use "row" as the result_type, in the second parameter
+ * Use ->row() as the result_type, in the second parameter
  * Returns one database object
  */
-$result = $db->handle->query("SELECT * FROM mytable WHERE id = 30","row");
+$result = $db->handle->query("SELECT * FROM mytable WHERE id = 30")->row();
 if ($results) {
     $result->id;
     $result->column_name;
