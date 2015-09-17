@@ -57,7 +57,7 @@ $db->db1->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()");
  * QUERIES with "multiple results"
  * Returns array of database objects
  */
-$results = $db->handle->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()");
+$results = $db->handle->query("SELECT * FROM mytable WHERE mycolumn = 12 ORDER BY RAND()")->result();
 if ($results) {
 	foreach($results as $row) {
 		$row->id;
