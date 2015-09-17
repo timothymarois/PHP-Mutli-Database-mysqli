@@ -12,9 +12,10 @@ class extend_mysqli extends mysqli
    */
 	public function query($query='')
 	{
-		if($query!='' && $this->return = parent::query($query)) 
-		{
-			return $this;
+		if (preg_match('/^\s*(INSERT|UPDATE|DELETE|SELECT)\s/i',$query)) {
+			if($query!='' && $this->return = parent::query($query)) {
+				return $this;
+			}
 		}
 		
 		return false;
