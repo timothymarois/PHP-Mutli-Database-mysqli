@@ -1,6 +1,6 @@
 <?php 
 
- require_once('extend_mysqli.php');
+require_once('extend_mysqli.php');
  
 /**
  * This class handles multiple Database connections and allows you to utilise lazy connections
@@ -57,6 +57,7 @@ class connect
 		 	                                   'database' => $database,
 		 	                                   'userName' => $userName,
 		 	                                   'password' => $password);
+
 		return $this;
 	}
 	
@@ -82,17 +83,22 @@ class connect
 				}
 				else
 				{
-					throw new Exception('Connect: Mysqli Connect Error: '.mysqli_connect_error());
+					throw new Exception('Database Connect: Mysqli Connect Error: '.mysqli_connect_error());
 				}
 			}
 		}
 		
-		throw new Exception('Connect: Could not find a connection with the handle ' . $handle);
-	  }
+		throw new Exception('Database Connect: Could not find a connection with the handle ' . $handle);
+	}
 
 
 	public function __get($handle) {
-		return $this->getDatabaseConnection($handle);
+		try {
+		  return $this->getDatabaseConnection($handle);
+		}
+		catch (Exception $e) {
+			die($e->getMessage());
+		}
 	}
 }
  

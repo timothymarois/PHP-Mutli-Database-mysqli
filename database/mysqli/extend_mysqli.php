@@ -1,39 +1,65 @@
 <?php 
 
- /**
-  * Extends mysqli and adds the ability to easily apc cache queries
-  */
+/**
+ * Extends mysqli and adds the ability to easily apc cache queries
+ */
 class extend_mysqli extends mysqli 
 {
+	private $return;
 
 	/**
    * This Function overwrites the mysql query function but should return the same objects
    */
-	public function query($query='',$resultmode='result')
+	public function query($query='')
 	{
-		if($query!='' && $return = parent::query($query)) 
-		{
-			if (preg_match('/^\s*DELETE\s+FROM\s*/i',$query) || preg_match('/^\s*UPDATE(.*)SET/i',$query)) {
-				return $this->affected_rows;
-			}
-
-			if (preg_match('/^\s*INSERT\s+INTO/i',$query)) {
-				return $this->insert_id;
-			}
-
-			if (preg_match('/^\s*SELECT/i',$query)) {
-			  if ($resultmode==='row') {
-			  	return $return->fetch_object();
-			  }
-			  else {
-			  	return $this->_buildArray($return);
-			  }
+		if (preg_match('/^\s*(INSERT|UPDATE|DELETE|SELECT)\s/i',$query)) {
+			if($query!='' && $this->return = parent::query($query)) {
+				return $this;
 			}
 		}
-		else {
-			return false;
-		} 
+		
+		return false;
 	}  
+
+	public function row() {
+		if ($this->return) {
+			return $this->return->fetch_object();
+		}
+
+		return false;
+	}
+
+	public function result() {
+		if ($this->return) {
+		  return $this->_buildArray($this->return);
+		}
+
+		return false;
+	}
+
+	public function affected_rows() {
+		if ($this->return && $this->affected_rows) {
+			return $this->affected_rows;
+		}
+
+		return false;
+	}
+
+	public function insert_id() {
+		if ($this->return && $this->insert_id) {
+			return $this->insert_id;
+		}
+
+		return false;
+	}
+
+	public function num_rows() {
+		if ($this->return && $this->return->num_rows) {
+			return $this->return->num_rows;
+		}
+
+		return false;
+	}
 
 	
 	/**
