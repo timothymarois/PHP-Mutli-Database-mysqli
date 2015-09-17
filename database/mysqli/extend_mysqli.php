@@ -38,7 +38,7 @@ class extend_mysqli extends mysqli
 	}
 
 	public function affected_rows() {
-		if ($this->affected_rows) {
+		if ($this->return && $this->affected_rows) {
 			return $this->affected_rows;
 		}
 
@@ -46,7 +46,7 @@ class extend_mysqli extends mysqli
 	}
 
 	public function insert_id() {
-		if ($this->insert_id) {
+		if ($this->return && $this->insert_id) {
 			return $this->insert_id;
 		}
 
@@ -54,7 +54,7 @@ class extend_mysqli extends mysqli
 	}
 
 	public function num_rows() {
-		if ($this->return->num_rows) {
+		if ($this->return && $this->return->num_rows) {
 			return $this->return->num_rows;
 		}
 

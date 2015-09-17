@@ -48,7 +48,6 @@ if ($affected_rows = $db->local->query("DELETE FROM test_table")->affected_rows(
 	print_r('<pre>deleted -> affected_rows: '.$affected_rows.'</pre>'); // prints out total number of rows deleted
 }
 
-
 echo memory_get_usage() . "<br>";
 
 /**
