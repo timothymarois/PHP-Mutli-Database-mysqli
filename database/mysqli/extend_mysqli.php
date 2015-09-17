@@ -1,8 +1,8 @@
 <?php 
 
- /**
-  * Extends mysqli and adds the ability to easily apc cache queries
-  */
+/**
+ * Extends mysqli and adds the ability to easily apc cache queries
+ */
 class extend_mysqli extends mysqli 
 {
 	private $return;
@@ -10,15 +10,14 @@ class extend_mysqli extends mysqli
 	/**
    * This Function overwrites the mysql query function but should return the same objects
    */
-	public function query($query='',$resultmode='result')
+	public function query($query='')
 	{
 		if($query!='' && $this->return = parent::query($query)) 
 		{
 			return $this;
 		}
-		else {
-			return false;
-		} 
+		
+		return false;
 	}  
 
 	public function row() {
