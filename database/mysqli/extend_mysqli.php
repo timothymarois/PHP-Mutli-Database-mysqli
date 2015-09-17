@@ -12,12 +12,8 @@ class extend_mysqli extends mysqli
    */
 	public function query($query='',$resultmode='result')
 	{
-		if($query!='' && $return = parent::query($query)) 
+		if($query!='' && $this->return = parent::query($query)) 
 		{
-			if (preg_match('/^\s*SELECT/i',$query)) {
-				$this->return = $return;
-			}
-
 			return $this;
 		}
 		else {
