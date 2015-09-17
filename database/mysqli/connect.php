@@ -1,7 +1,5 @@
 <?php 
 
-class DatabaseException extends Exception { }
-
 require_once('extend_mysqli.php');
  
 /**
@@ -85,12 +83,12 @@ class connect
 				}
 				else
 				{
-					throw new DatabaseException('Database Connect: Mysqli Connect Error: '.mysqli_connect_error());
+					throw new Exception('Database Connect: Mysqli Connect Error: '.mysqli_connect_error());
 				}
 			}
 		}
 		
-		throw new DatabaseException('Database Connect: Could not find a connection with the handle ' . $handle);
+		throw new Exception('Database Connect: Could not find a connection with the handle ' . $handle);
 	}
 
 
@@ -98,7 +96,7 @@ class connect
 		try {
 		  return $this->getDatabaseConnection($handle);
 		}
-		catch (DatabaseException $e) {
+		catch (Exception $e) {
 			die($e->getMessage());
 		}
 	}
