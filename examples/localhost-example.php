@@ -5,11 +5,17 @@
  * @author timothymarois@gmail.com
  */
 
+echo memory_get_usage() . "<br>";
+
 require_once('../database/mysqli/connect.php'); 
 $db = connect::getInstance();
 
 // connect to localhost on database test using root
 $db->createConnection('local','localhost','test','root','');
+
+
+echo memory_get_usage() . "<br>";
+
 
 
 // test the insert query (once)
@@ -30,18 +36,20 @@ $db->createConnection('local','localhost','test','root','');
  * Now int(0) will be returned if no rows are modified
  */
 
-if ($insert_id = $db->local->query("INSERT INTO test_table SET random = '".(time()+mt_rand(99,99999))."' ")) {
+if ($insert_id = $db->local->query("INSERT INTO test_table SET random = '".(time()+mt_rand(99,99999))."' ")->insert_id()) {
 	print_r('<pre>insert_id: '.$insert_id.'</pre>'); // prints (the ID of the new row)
 }
 
-if ($affected_rows = $db->local->query("UPDATE test_table SET random = '".(time()+mt_rand(99,99999))."'")) {
+if ($affected_rows = $db->local->query("UPDATE test_table SET random = '".(time()+mt_rand(99,99999))."'")->affected_rows()) {
 	print_r('<pre>updated -> affected_rows: '.$affected_rows.'</pre>'); // prints (all rows in the database)
 }
 
-if ($affected_rows = $db->local->query("DELETE FROM test_table")) {
+if ($affected_rows = $db->local->query("DELETE FROM test_table")->affected_rows()) {
 	print_r('<pre>deleted -> affected_rows: '.$affected_rows.'</pre>'); // prints out total number of rows deleted
 }
 
+
+echo memory_get_usage() . "<br>";
 
 /**
  * API Functionality with MySQLi
@@ -58,7 +66,7 @@ for($x=0; $x < mt_rand(99,999); $x++) {
 
 // display all the rows on the page
 // by default use "result"
-$q = $db->local->query("SELECT * FROM test_table ");
+$q = $db->local->query("SELECT * FROM test_table ")->result();
 print '<pre>';
 foreach($q as $r) {
 	print "id = ".$r->id." \n";
@@ -67,11 +75,17 @@ print '</pre>';
 
 // only return 1 item, use "row"
 // you can still declare "result" to confirm
-$q = $db->local->query("SELECT * FROM test_table LIMIT 1","row");
-print_r($q);
+$q = $db->local->query("SELECT * FROM test_table LIMIT 1")->row();
+// print_r($q);
+
+
+echo memory_get_usage() . "<br>";
 
 
 // close the database connection
 $db->local->close();
 // test if DB is closed... should print an error message
 // $db->local->query("UPDATE test_table SET random = '".(time()+mt_rand(99,99999))."' LIMIT 20");
+
+
+echo memory_get_usage() . "<br>";
